@@ -45,7 +45,8 @@ class BaseRun:
                 self.hash = run_hash
                 analytics.track_event(event_name='[Run] Resume run')
             else:
-                raise MissingRunError(f'Cannot find Run {run_hash} in aim Repo {self.repo.path}.')
+                self.hash = run_hash
+                analytics.track_event(event_name='[Run] Create new run')
             self._lock = self.repo.request_run_lock(self.hash)
             self._lock.lock(force=force_resume)
 
